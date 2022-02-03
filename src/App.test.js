@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('She transferred to Honnōji Academy searching for the twin', () => {
+test('dry-weight: 99.5', async() => {
   render(<App />);
-  const linkElement = screen.getByText(/Honnōji Academy/i);
+  const linkElement = await screen.findByText(/dry-weight: 99.5/i);
   expect(linkElement).toBeInTheDocument();
 });
