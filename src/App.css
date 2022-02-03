@@ -11,7 +11,7 @@ body{
   justify-content: center;
 }
 
-.wrapper, .nostromo-wrapper{
+.wrapper, .nostromo-wrapper, .tea-wrapper, .kill-wrapper{
   width: 900px;
   display: flex;
   margin-bottom: 20px;
@@ -32,6 +32,16 @@ body{
   color: darkgreen;
 }
 
+.tea-wrapper .left{
+  border: 3px solid hotpink;
+  color: turquoise;
+}
+
+.kill-wrapper .left{
+  border: 3px solid red;
+  color: blue;
+}
+
 .motorcycle-card{
   margin-bottom: 10px;
   background-color: orange;
@@ -44,4 +54,30 @@ body{
   background-color: darkgreen;
   color: greenyellow;
   padding: 20px;
+}
+
+.tea-card{
+  margin-bottom: 10px;
+  background-color: hotpink;
+  color: turquoise;
+  padding: 20px;
+}
+
+.kill-card{
+  margin-bottom: 10px;
+  background-color: red;
+  color: blue;
+  padding: 20px;
+}
+
+.certs{
+  display: flex;
+}
+
+h3{
+  text-decoration: underline;
+}
+
+ul{
+  margin-left: 20px;
 }
