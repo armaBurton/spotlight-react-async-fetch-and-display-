@@ -1,0 +1,47 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+body{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper, .nostromo-wrapper{
+  width: 900px;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.left, .right{
+  width: 50%;
+  padding: 10px;
+}
+
+.left{
+  border: 3px solid orange;
+  color: purple;
+}
+
+.nostromo-wrapper .left{
+  border: 3px solid darkgreen;
+  color: darkgreen;
+}
+
+.motorcycle-card{
+  margin-bottom: 10px;
+  background-color: orange;
+  color:purple;
+  padding: 20px;;
+}
+
+.crew-card{
+  margin-bottom: 10px;
+  background-color: darkgreen;
+  color: greenyellow;
+  padding: 20px;
+}
