@@ -2,7 +2,6 @@ import RenderAff from './RenderAff';
 import RenderOcc from './RenderOcc';
 
 export default function RenderKill(props){
-  console.log(props);
 
   return <div className='kill-card'>
     <h1>{props.k.name}, {props.k.age}</h1>
