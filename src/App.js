@@ -1,37 +1,47 @@
 import { useState, useEffect } from 'react';
 import { getKill, getKTMMotorcycles, getNostromoCrew, getTea } from './services/fetch_utils';
-import RenderMotorcycle from './RenderMotorcycle';
-import RenderCrew from './RenderCrew';
+import RenderKTMList from './RenderKTMList';
+import RenderNostromoCrew from './RenderNostromoCrew';
 import RenderTea from './RenderTea';
 import RenderKill from './RenderKill';
 import './App.css';
+import spinner from './giphy.gif';
 
 function App() {
   const [motorcycles, setMotorcycles] = useState([]);
   const [crew, setCrew] = useState([]);
   const [tea, setTea] = useState([]);
   const [kill, setKill] = useState([]);
+  const [isLoading, setLoading] = useState(false);
 
   async function fetchMotorcycles(){
+    setLoading(true);
     const data = await getKTMMotorcycles();
+    setLoading(false);
 
     setMotorcycles(data);
   }
 
   async function fetchCrew(){
+    setLoading(true);
     const data = await getNostromoCrew();
+    setLoading(false);
 
     setCrew(data);
   }
 
   async function fetchTea(){
+    setLoading(true);
     const data = await getTea();
+    setLoading(false);
 
     setTea(data);
   }
 
   async function fetchKill(){
+    setLoading(true);
     const data = await getKill();
+    setLoading(false);
 
     setKill(data);
   }
@@ -45,25 +55,26 @@ function App() {
   
   return <>
     <div className='wrapper'>
-      <div className='left'>
-        <h1>KTM MOTORCYCLES</h1>
-        {/* <button onClick={fetchMotorcycles}>fetchMotorcycles</button> */}
-      </div>
-      <div className='right'>
-        {
-          motorcycles.map((motorcycle, i) => <RenderMotorcycle key={`${motorcycle}${i}`} motorcycle={motorcycle}/>)
-        }
-      </div>
+      {
+        isLoading
+          ? <img src={spinner} /> 
+          : <RenderKTMList motorcycles={motorcycles} />
+      }
     </div>
     <div className='nostromo-wrapper'>
-      <div className='left'>
+      {
+        isLoading
+          ? <img src={spinner} /> 
+          : <RenderNostromoCrew crew={crew} />
+      }
+      {/* <div className='left'>
         <h1>USCSS NOSTROMO CREW</h1> 
       </div>
       <div className='right'>
         {
           crew.map((mate, i) => <RenderCrew key={`${mate}${i}`} mate={mate}/>)
         }
-      </div>
+      </div> */}
     </div>
     <div className='tea-wrapper'>
       <div className='left'>
