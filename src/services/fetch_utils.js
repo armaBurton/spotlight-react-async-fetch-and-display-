@@ -20,3 +20,10 @@ export async function getTea(){
 
   return checkError(response);
 }
+
+export async function getKill(){
+  const response = await client
+    .from(`kill_la_kill`);
+
+  return checkError(response);
+}

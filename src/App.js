@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
-import { getKTMMotorcycles, getNostromoCrew, getTea } from './services/fetch_utils';
+import { getKill, getKTMMotorcycles, getNostromoCrew, getTea } from './services/fetch_utils';
 import RenderMotorcycle from './RenderMotorcycle';
 import RenderCrew from './RenderCrew';
 import RenderTea from './RenderTea';
+import RenderKill from './RenderKill';
 import './App.css';
 
 function App() {
   const [motorcycles, setMotorcycles] = useState([]);
   const [crew, setCrew] = useState([]);
   const [tea, setTea] = useState([]);
+  const [kill, setKill] = useState([]);
 
   async function fetchMotorcycles(){
     const data = await getKTMMotorcycles();
@@ -27,11 +29,18 @@ function App() {
 
     setTea(data);
   }
+
+  async function fetchKill(){
+    const data = await getKill();
+
+    setKill(data);
+  }
   
   useEffect(() => {
     fetchMotorcycles();
     fetchCrew();
     fetchTea();
+    fetchKill();
   }, []);
   
   return <>
@@ -63,6 +72,16 @@ function App() {
       <div className='right'>
         {
           tea.map((flavor, i) => <RenderTea key={`${flavor}${i}`} flavor={flavor}/>)
+        }
+      </div>
+    </div>
+    <div className='kill-wrapper'>
+      <div className='left'>
+        <h1>Kill la Kill</h1>
+      </div>
+      <div className='right'>
+        {
+          kill.map((k, i) => <RenderKill key={`${k}${i}`} k={k}/>)
         }
       </div>
     </div>
