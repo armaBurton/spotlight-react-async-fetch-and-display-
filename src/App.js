@@ -1,37 +1,50 @@
 import { useState, useEffect } from 'react';
 import { getKill, getKTMMotorcycles, getNostromoCrew, getTea } from './services/fetch_utils';
-import RenderMotorcycle from './RenderMotorcycle';
-import RenderCrew from './RenderCrew';
-import RenderTea from './RenderTea';
-import RenderKill from './RenderKill';
+import RenderKTMList from './RenderKTMList';
+import RenderNostromoCrew from './RenderNostromoCrew';
+import RenderTeaList from './RenderTeaList';
+import RenderKillLaKill from './RenderKillLaKill';
 import './App.css';
+import spinner from './giphy.gif';
 
 function App() {
   const [motorcycles, setMotorcycles] = useState([]);
   const [crew, setCrew] = useState([]);
   const [tea, setTea] = useState([]);
   const [kill, setKill] = useState([]);
+  const [isLoading, setLoading] = useState(false);
+  const [isTeaLoading, setTeaLoading] = useState(false);
+  const [isNostromoLoading, setNostromoLoading] = useState(false);
+  const [isKillLoading, setKillLoading] = useState(false);
 
   async function fetchMotorcycles(){
+    setLoading(true);
     const data = await getKTMMotorcycles();
+    setLoading(false);
 
     setMotorcycles(data);
   }
 
   async function fetchCrew(){
+    setNostromoLoading(true);
     const data = await getNostromoCrew();
+    setNostromoLoading(false);
 
     setCrew(data);
   }
 
   async function fetchTea(){
+    setTeaLoading(true);
     const data = await getTea();
+    setTeaLoading(false);
 
     setTea(data);
   }
 
   async function fetchKill(){
+    setKillLoading(true);
     const data = await getKill();
+    setKillLoading(false);
 
     setKill(data);
   }
@@ -45,45 +58,32 @@ function App() {
   
   return <>
     <div className='wrapper'>
-      <div className='left'>
-        <h1>KTM MOTORCYCLES</h1>
-        {/* <button onClick={fetchMotorcycles}>fetchMotorcycles</button> */}
-      </div>
-      <div className='right'>
-        {
-          motorcycles.map((motorcycle, i) => <RenderMotorcycle key={`${motorcycle}${i}`} motorcycle={motorcycle}/>)
-        }
-      </div>
+      {
+        isLoading
+          ? <img src={spinner} /> 
+          : <RenderKTMList motorcycles={motorcycles} />
+      }
     </div>
     <div className='nostromo-wrapper'>
-      <div className='left'>
-        <h1>USCSS NOSTROMO CREW</h1> 
-      </div>
-      <div className='right'>
-        {
-          crew.map((mate, i) => <RenderCrew key={`${mate}${i}`} mate={mate}/>)
-        }
-      </div>
+      {
+        isLoading
+          ? <img src={spinner} /> 
+          : <RenderNostromoCrew crew={crew} />
+      }
     </div>
     <div className='tea-wrapper'>
-      <div className='left'>
-        <h1>TEA</h1> 
-      </div>
-      <div className='right'>
-        {
-          tea.map((flavor, i) => <RenderTea key={`${flavor}${i}`} flavor={flavor}/>)
-        }
-      </div>
+      {
+        isLoading
+          ? <img src={spinner} /> 
+          : <RenderTeaList tea={tea} />
+      }
     </div>
     <div className='kill-wrapper'>
-      <div className='left'>
-        <h1>Kill la Kill</h1>
-      </div>
-      <div className='right'>
-        {
-          kill.map((k, i) => <RenderKill key={`${k}${i}`} k={k}/>)
-        }
-      </div>
+      {
+        isLoading
+          ? <img src={spinner} /> 
+          : <RenderKillLaKill kill={kill} />
+      }
     </div>
   </>;
 }
