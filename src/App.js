@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { getKill, getKTMMotorcycles, getNostromoCrew, getTea } from './services/fetch_utils';
 import RenderKTMList from './RenderKTMList';
 import RenderNostromoCrew from './RenderNostromoCrew';
-import RenderTea from './RenderTea';
-import RenderKill from './RenderKill';
+import RenderTeaList from './RenderTeaList';
+import RenderKillLaKill from './RenderKillLaKill';
 import './App.css';
 import spinner from './giphy.gif';
 
@@ -13,6 +13,9 @@ function App() {
   const [tea, setTea] = useState([]);
   const [kill, setKill] = useState([]);
   const [isLoading, setLoading] = useState(false);
+  const [isTeaLoading, setTeaLoading] = useState(false);
+  const [isNostromoLoading, setNostromoLoading] = useState(false);
+  const [isKillLoading, setKillLoading] = useState(false);
 
   async function fetchMotorcycles(){
     setLoading(true);
@@ -23,25 +26,25 @@ function App() {
   }
 
   async function fetchCrew(){
-    setLoading(true);
+    setNostromoLoading(true);
     const data = await getNostromoCrew();
-    setLoading(false);
+    setNostromoLoading(false);
 
     setCrew(data);
   }
 
   async function fetchTea(){
-    setLoading(true);
+    setTeaLoading(true);
     const data = await getTea();
-    setLoading(false);
+    setTeaLoading(false);
 
     setTea(data);
   }
 
   async function fetchKill(){
-    setLoading(true);
+    setKillLoading(true);
     const data = await getKill();
-    setLoading(false);
+    setKillLoading(false);
 
     setKill(data);
   }
@@ -67,34 +70,20 @@ function App() {
           ? <img src={spinner} /> 
           : <RenderNostromoCrew crew={crew} />
       }
-      {/* <div className='left'>
-        <h1>USCSS NOSTROMO CREW</h1> 
-      </div>
-      <div className='right'>
-        {
-          crew.map((mate, i) => <RenderCrew key={`${mate}${i}`} mate={mate}/>)
-        }
-      </div> */}
     </div>
     <div className='tea-wrapper'>
-      <div className='left'>
-        <h1>TEA</h1> 
-      </div>
-      <div className='right'>
-        {
-          tea.map((flavor, i) => <RenderTea key={`${flavor}${i}`} flavor={flavor}/>)
-        }
-      </div>
+      {
+        isLoading
+          ? <img src={spinner} /> 
+          : <RenderTeaList tea={tea} />
+      }
     </div>
     <div className='kill-wrapper'>
-      <div className='left'>
-        <h1>Kill la Kill</h1>
-      </div>
-      <div className='right'>
-        {
-          kill.map((k, i) => <RenderKill key={`${k}${i}`} k={k}/>)
-        }
-      </div>
+      {
+        isLoading
+          ? <img src={spinner} /> 
+          : <RenderKillLaKill kill={kill} />
+      }
     </div>
   </>;
 }
